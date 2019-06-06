@@ -53,7 +53,7 @@
 		EB4FCB4F22A04D0E0039802E = {
 			isa = PBXGroup;
 			children = (
-				EB4FCB5A22A04D0E0039802E /* Six Degrees of Kelvin Bacon */,
+				EB4FCB5A22A04D0E0039802E /* Six Degrees of Kevin Bacon */,
 				EB4FCB5922A04D0E0039802E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,7 +66,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EB4FCB5A22A04D0E0039802E /* Six Degrees of Kelvin Bacon */ = {
+		EB4FCB5A22A04D0E0039802E /* Six Degrees of Kevin Bacon */ = {
 			isa = PBXGroup;
 			children = (
 				EBF0954522A8DACC0081C9C4 /* Tree */,
@@ -78,7 +78,7 @@
 				EB4FCB6322A050530039802E /* .gitattributes */,
 				EBF0954622A8DF040081C9C4 /* IMDb.tsv */,
 			);
-			path = "Six Degrees of Kelvin Bacon";
+			path = "Six Degrees of Kevin Bacon";
 			sourceTree = "<group>";
 		};
 		EBF0954522A8DACC0081C9C4 /* Tree */ = {
