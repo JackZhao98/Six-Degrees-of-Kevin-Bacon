@@ -74,3 +74,23 @@ bool IMDb::getCast(const string& movieTitle, vector<string>& casts)const {
     }
     return true;
 }
+
+string IMDb::accessActor(const string& huffmanCode, int index) {
+    TreeNode<data>* walker = actor.root();
+    while (index < huffmanCode.size()) {
+        if (huffmanCode[index] == '1') {
+            if (walker -> getGreaterNode())
+                walker = walker -> greaterNode();
+            else
+                break;
+        }
+        else {
+            if (walker -> getSmallerNode())
+                walker = walker -> smallerNode();
+            else
+                break;
+        }
+        ++ index;
+    }
+    return walker -> data().getString();
+}

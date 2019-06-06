@@ -35,6 +35,8 @@ public:
     bool getCredits(const string& actorName, vector<string>& films)const;
     
     bool getCast(const string& movieTitle, vector<string>& casts)const;
+    
+    string accessActor(const string& huffmanCode = "", int index = 0);
 };
 
 #endif /* IMDb_hpp */

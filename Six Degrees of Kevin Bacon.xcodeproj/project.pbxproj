@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EB4FCB5C22A04D0E0039802E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4FCB5B22A04D0E0039802E /* main.cpp */; };
 		EB4FCB6622A0510A0039802E /* data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4FCB6422A0510A0039802E /* data.cpp */; };
+		EB522BC422A8FD2D0033F20F /* path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB522BC222A8FD2D0033F20F /* path.cpp */; };
 		EBF0954922A8DFAE0081C9C4 /* IMDb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBF0954722A8DFAE0081C9C4 /* IMDb.cpp */; };
 		EBF0954F22A8E7C70081C9C4 /* Tree Functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBF0954D22A8E7C70081C9C4 /* Tree Functions.cpp */; };
 /* End PBXBuildFile section */
@@ -31,6 +32,8 @@
 		EB4FCB6322A050530039802E /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = SOURCE_ROOT; };
 		EB4FCB6422A0510A0039802E /* data.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = data.cpp; sourceTree = "<group>"; };
 		EB4FCB6522A0510A0039802E /* data.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = data.hpp; sourceTree = "<group>"; };
+		EB522BC222A8FD2D0033F20F /* path.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = path.cpp; sourceTree = "<group>"; };
+		EB522BC322A8FD2D0033F20F /* path.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = path.hpp; sourceTree = "<group>"; };
 		EBF0954622A8DF040081C9C4 /* IMDb.tsv */ = {isa = PBXFileReference; lastKnownFileType = text; path = IMDb.tsv; sourceTree = "<group>"; };
 		EBF0954722A8DFAE0081C9C4 /* IMDb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IMDb.cpp; sourceTree = "<group>"; };
 		EBF0954822A8DFAE0081C9C4 /* IMDb.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IMDb.hpp; sourceTree = "<group>"; };
@@ -72,6 +75,8 @@
 				EBF0954522A8DACC0081C9C4 /* Tree */,
 				EB4FCB5B22A04D0E0039802E /* main.cpp */,
 				EB4FCB6522A0510A0039802E /* data.hpp */,
+				EB522BC222A8FD2D0033F20F /* path.cpp */,
+				EB522BC322A8FD2D0033F20F /* path.hpp */,
 				EBF0954722A8DFAE0081C9C4 /* IMDb.cpp */,
 				EBF0954822A8DFAE0081C9C4 /* IMDb.hpp */,
 				EB4FCB6422A0510A0039802E /* data.cpp */,
@@ -150,6 +155,7 @@
 				EBF0954F22A8E7C70081C9C4 /* Tree Functions.cpp in Sources */,
 				EB4FCB5C22A04D0E0039802E /* main.cpp in Sources */,
 				EBF0954922A8DFAE0081C9C4 /* IMDb.cpp in Sources */,
+				EB522BC422A8FD2D0033F20F /* path.cpp in Sources */,
 				EB4FCB6622A0510A0039802E /* data.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -56,7 +56,7 @@ public:
     // Decrease the count number
     
     // Accessor
-    const T& getData() {return _T_TYPE_DATA;}
+    const T& getData()const {return _T_TYPE_DATA;}
     // Access data.
     TreeNode*& getGreaterNode() {return _GREATER_NODE;}
     // Access greater node.

@@ -27,6 +27,7 @@ public:
     
     void addConnection(const string& connectedTitle);
     vector<string>& getConnected() {return connected;}
+    const string& getString()const {return fullTitle;}
     
     friend
     bool operator < (const data& LHS, const data& RHS) {
