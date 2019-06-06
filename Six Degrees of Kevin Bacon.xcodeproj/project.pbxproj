@@ -125,7 +125,7 @@
 					};
 				};
 			};
-			buildConfigurationList = EB4FCB5322A04D0E0039802E /* Build configuration list for PBXProject "Six Degrees of Kelvin Bacon" */;
+			buildConfigurationList = EB4FCB5322A04D0E0039802E /* Build configuration list for PBXProject "Six Degrees of Kevin Bacon" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -293,7 +293,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EB4FCB5322A04D0E0039802E /* Build configuration list for PBXProject "Six Degrees of Kelvin Bacon" */ = {
+		EB4FCB5322A04D0E0039802E /* Build configuration list for PBXProject "Six Degrees of Kevin Bacon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EB4FCB5D22A04D0E0039802E /* Debug */,

@@ -17,7 +17,7 @@
                BlueprintIdentifier = "EB4FCB5722A04D0E0039802E"
                BuildableName = "Six Degrees of Kelvin Bacon"
                BlueprintName = "Six Degrees of Kelvin Bacon"
-               ReferencedContainer = "container:Six Degrees of Kelvin Bacon.xcodeproj">
+               ReferencedContainer = "container:Six Degrees of Kevin Bacon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "EB4FCB5722A04D0E0039802E"
             BuildableName = "Six Degrees of Kelvin Bacon"
             BlueprintName = "Six Degrees of Kelvin Bacon"
-            ReferencedContainer = "container:Six Degrees of Kelvin Bacon.xcodeproj">
+            ReferencedContainer = "container:Six Degrees of Kevin Bacon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -59,7 +59,7 @@
             BlueprintIdentifier = "EB4FCB5722A04D0E0039802E"
             BuildableName = "Six Degrees of Kelvin Bacon"
             BlueprintName = "Six Degrees of Kelvin Bacon"
-            ReferencedContainer = "container:Six Degrees of Kelvin Bacon.xcodeproj">
+            ReferencedContainer = "container:Six Degrees of Kevin Bacon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "EB4FCB5722A04D0E0039802E"
             BuildableName = "Six Degrees of Kelvin Bacon"
             BlueprintName = "Six Degrees of Kelvin Bacon"
-            ReferencedContainer = "container:Six Degrees of Kelvin Bacon.xcodeproj">
+            ReferencedContainer = "container:Six Degrees of Kevin Bacon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
