@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/jackzhao/Documents/PCC Archived/Computer Science/CS 8/Final/Six Degrees of Kelvin Bacon/Six Degrees of Kevin Bacon"
+      customWorkingDirectory = "/Users/winniejeng/Desktop/Six-Degrees-of-Kevin-Bacon/Six Degrees of Kevin Bacon"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"

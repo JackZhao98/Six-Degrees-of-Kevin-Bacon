@@ -10,11 +10,14 @@
 
 IMDb::IMDb(): dbPath("IMDb.tsv") {
     db.open(dbPath);
-    if (!db.good())
+    if (!db.good()) {
+        cout << "File Not in Path. ";
         exit(1);
+    }
 }
 
 IMDb::~IMDb() {
+    std::cout << "IMDB dsctor\n";
     db.close();
 }
 

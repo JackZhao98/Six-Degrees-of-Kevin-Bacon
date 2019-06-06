@@ -21,19 +21,14 @@ private:
     AVLTree<data> actor;
     AVLTree<data> movie;
     
-    
-    
 public:
     IMDb();
     ~IMDb();
     IMDb(const IMDb& other);
     IMDb& operator=(const IMDb& other);
     
-    
     void loadDataBase();
-    
     bool getCredits(const string& actorName, vector<string>& films)const;
-    
     bool getCast(const string& movieTitle, vector<string>& casts)const;
 };
 

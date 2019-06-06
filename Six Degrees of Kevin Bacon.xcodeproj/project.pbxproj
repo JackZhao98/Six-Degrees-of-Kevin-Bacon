@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82DE673022A9B30700C2B5B3 /* Relations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82DE672E22A9B30700C2B5B3 /* Relations.cpp */; };
 		EB4FCB5C22A04D0E0039802E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4FCB5B22A04D0E0039802E /* main.cpp */; };
 		EB4FCB6622A0510A0039802E /* data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4FCB6422A0510A0039802E /* data.cpp */; };
 		EBF0954922A8DFAE0081C9C4 /* IMDb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBF0954722A8DFAE0081C9C4 /* IMDb.cpp */; };
@@ -26,13 +27,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		82DE672E22A9B30700C2B5B3 /* Relations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Relations.cpp; sourceTree = "<group>"; };
+		82DE672F22A9B30700C2B5B3 /* Relations.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Relations.hpp; sourceTree = "<group>"; };
 		EB4FCB5822A04D0E0039802E /* Six Degrees of Kelvin Bacon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Six Degrees of Kelvin Bacon"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB4FCB5B22A04D0E0039802E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		EB4FCB6322A050530039802E /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = SOURCE_ROOT; };
 		EB4FCB6422A0510A0039802E /* data.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = data.cpp; sourceTree = "<group>"; };
 		EB4FCB6522A0510A0039802E /* data.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = data.hpp; sourceTree = "<group>"; };
 		EBF0954622A8DF040081C9C4 /* IMDb.tsv */ = {isa = PBXFileReference; lastKnownFileType = text; path = IMDb.tsv; sourceTree = "<group>"; };
-		EBF0954722A8DFAE0081C9C4 /* IMDb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IMDb.cpp; sourceTree = "<group>"; };
+		EBF0954722A8DFAE0081C9C4 /* IMDb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = IMDb.cpp; path = "Six Degrees of Kevin Bacon/IMDb.cpp"; sourceTree = SOURCE_ROOT; };
 		EBF0954822A8DFAE0081C9C4 /* IMDb.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IMDb.hpp; sourceTree = "<group>"; };
 		EBF0954B22A8E7AE0081C9C4 /* Node.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Node.hpp; sourceTree = "<group>"; };
 		EBF0954D22A8E7C70081C9C4 /* Tree Functions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "Tree Functions.cpp"; sourceTree = "<group>"; };
@@ -71,6 +74,8 @@
 			children = (
 				EBF0954522A8DACC0081C9C4 /* Tree */,
 				EB4FCB5B22A04D0E0039802E /* main.cpp */,
+				82DE672E22A9B30700C2B5B3 /* Relations.cpp */,
+				82DE672F22A9B30700C2B5B3 /* Relations.hpp */,
 				EB4FCB6522A0510A0039802E /* data.hpp */,
 				EBF0954722A8DFAE0081C9C4 /* IMDb.cpp */,
 				EBF0954822A8DFAE0081C9C4 /* IMDb.hpp */,
@@ -148,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBF0954F22A8E7C70081C9C4 /* Tree Functions.cpp in Sources */,
+				82DE673022A9B30700C2B5B3 /* Relations.cpp in Sources */,
 				EB4FCB5C22A04D0E0039802E /* main.cpp in Sources */,
 				EBF0954922A8DFAE0081C9C4 /* IMDb.cpp in Sources */,
 				EB4FCB6622A0510A0039802E /* data.cpp in Sources */,
@@ -273,7 +279,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A4R6VQRKMH;
+				DEVELOPMENT_TEAM = 37CWHKAPJQ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -284,7 +290,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A4R6VQRKMH;
+				DEVELOPMENT_TEAM = 37CWHKAPJQ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
