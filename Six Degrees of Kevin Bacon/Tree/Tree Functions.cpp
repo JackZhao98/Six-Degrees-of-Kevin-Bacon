@@ -40,6 +40,16 @@ TreeNode<T>* search(TreeNode<T>* root, const T& findThis) {
 }
 
 template <class T>
+void printData(TreeNode<T>* root) {
+    if (!root)
+        return ;
+    printData(root -> getGreaterNode());
+    std::cout << "[" << root<< "]" << std::endl;
+    printData(root -> getSmallerNode());
+
+}
+
+template <class T>
 bool search(TreeNode<T>* root, const T& findThis, TreeNode<T>*& targetPtr) {
     targetPtr = search(root, findThis);
     return targetPtr;
@@ -275,19 +285,19 @@ namespace avl {
         return root;
     }
     
-    template <class T>
-    std::ostream& in_order_print(TreeNode<T>*& root, std::ostream& out) {
+    template <class S>
+    std::ostream& in_order_print(TreeNode<S>*& root, std::ostream& out) {
         while (root) {
-            TreeNode<T>* tempWalker = root;
+            TreeNode<S>* tempWalker = root;
             while (tempWalker -> smallerNode())
                 tempWalker = tempWalker -> smallerNode();
-            
-            T temp = tempWalker -> getData();
-            
+
+            S temp = tempWalker -> getData();
+
             out << temp << "  " << tempWalker -> getCount() << std::endl;
             if (erase(root, temp)) {}
         }
-        
+
         return out;
     }
 }

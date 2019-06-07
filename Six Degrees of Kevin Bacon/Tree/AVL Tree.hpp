@@ -10,7 +10,8 @@
 #define AVL_Tree_hpp
 
 #include "Tree Functions.cpp"
-
+#include <iostream>
+using namespace std;
 template <class T>
 class AVLTree {
 private:
@@ -30,6 +31,7 @@ public:
     TreeNode<T>*& root() {return _root;}
     // Access the root and modifie it.
     const unsigned int getSize() {return _size;}
+    const T getData() {return _root->getData();}
     // Access the size of the tree.
     bool insert(const T& INS_THIS);
     
@@ -45,6 +47,12 @@ public:
         insert(Data);
         return *this;
     }
+    
+    // generic prints tree
+    void printTree();
+    
+    
+    
     // Friend insertion/extration operator
     friend
     std::ostream& operator <<(std::ostream& outs, const AVLTree<T>& tree){
@@ -115,6 +123,12 @@ inline bool AVLTree<T>::erase(const T& DEL_THIS) {
 template <class T>
 inline TreeNode<T>* AVLTree<T>::searchAVL(const T& FIND_THIS)const {
     return search(_root, FIND_THIS);
+}
+
+// pls work...
+template <class T>
+inline void AVLTree<T>::printTree() {
+    printData(_root);
 }
 
 template <class T>

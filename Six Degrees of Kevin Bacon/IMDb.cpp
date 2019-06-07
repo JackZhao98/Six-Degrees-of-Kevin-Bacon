@@ -17,7 +17,6 @@ IMDb::IMDb(): dbPath("IMDb.tsv") {
 }
 
 IMDb::~IMDb() {
-    std::cout << "IMDB dsctor\n";
     db.close();
 }
 
@@ -36,24 +35,38 @@ IMDb& IMDb::operator=(const IMDb& other) {
     }
     return *this;
 }
+void IMDb::searchDataBase(string name) {
+    
+}
 
 void IMDb::loadDataBase() {
-    string line, _movie, _actor;
+    string line, _movie, _actor, _prevActor, _prevMovie;
     
     while (db) {
+        string connection;
         getline(db,line);
         stringstream ss;
         ss.str(line);
         getline(ss,_movie,'\t');
         getline(ss,_actor,'\t');
         
+        // create Kevin Bacon actor object
+        if (_actor == "Kevin Bacon") {
+            KevinBacon.movieAappearances(_movie);
+            KevinBacon.buildNetwork(string _actor, string _movie);
+        }
+        
+        
+        
+        connection =  _actor + " from " + _movie + "\n";
+        //        cout << _actor << " in " << _movie << endl;
         actor.insertWithReturnPointer(data(_actor)) -> data().addConnection(_movie);
         movie.insertWithReturnPointer(data(_movie)) -> data().addConnection(_actor);
-        
+        //        actorConnections.insert(const basic_string<char> &INS_THIS)
     }
     
+    
 }
-
 bool IMDb::getCredits(const string& actorName, vector<string>& films)const {
     TreeNode<data>* temp = actor.searchAVL(data(actorName));
     if (!temp)
@@ -77,3 +90,5 @@ bool IMDb::getCast(const string& movieTitle, vector<string>& casts)const {
     }
     return true;
 }
+
+

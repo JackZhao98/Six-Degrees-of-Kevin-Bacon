@@ -11,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 using namespace std;
 
 class data {
@@ -26,6 +27,8 @@ public:
     data& operator=(const data& other);
     
     void addConnection(const string& connectedTitle);
+    void getData();
+    
     vector<string>& getConnected() {return connected;}
     
     friend

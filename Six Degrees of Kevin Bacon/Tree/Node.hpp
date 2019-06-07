@@ -10,6 +10,7 @@
 #define Node_hpp
 #include <iostream>
 #include <string>
+#include <sstream>
 template <class T>
 class TreeNode {
 private:
@@ -56,7 +57,11 @@ public:
     // Decrease the count number
     
     // Accessor
-    const T& getData() {return _T_TYPE_DATA;}
+    const T& getData() {
+        std::stringstream ss;
+//        ss.str(_T_TYPE_DATA);
+//        std::cout << _T_TYPE_DATA.str() << std::endl;
+        return _T_TYPE_DATA;}
     // Access data.
     TreeNode*& getGreaterNode() {return _GREATER_NODE;}
     // Access greater node.
@@ -70,6 +75,15 @@ public:
     // Boolean
     bool is_leaf() const;
     // Return true if the node is a leaf (no children)
+    
+    
+    template <class S>
+    friend std::ostream& operator<<(const TreeNode<S>*& node, std::ostream& out) {
+        std::string data = node->_T_TYPE_DATA;
+        out << data;
+        return out;
+    }
+
 };
 
 template <class T>
