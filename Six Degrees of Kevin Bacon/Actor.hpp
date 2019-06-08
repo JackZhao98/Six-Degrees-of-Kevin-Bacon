@@ -15,32 +15,28 @@
 #include <string>
 #include <utility>
 #include "Heap/BinaryHeap.hpp"
+#include <queue>
 using namespace std;
 class Actor {
 private:
     string _name;
     bool _visited;
-    vector<pair<string,string>> friendshipPath;
-    vector<string> _movies;
-//    Heap<string> path;
-//    string previousConnection;
+    string _prevConnection;
+    string _movie;
     
 public:
-    Actor(string name) {
+    Actor(string name="Kevin Bacon", bool visited=true, string prevConnection="", string movie="") {
         _name = name;
-        _visited = false;
+        _visited = true;
+        _prevConnection = prevConnection;
+        _movie = movie;
     }
-    Actor() {}
-    ~Actor(){}
-    void addFriends() {}
-    void movieAappearances(string movie) {
-        _movies.push_back(movie);
-        cout << _movies.at(_movies.size()-1) << endl;
-    };
     
-    void buildNetwork(string actor, string movie) {
-        
-    }
+    ~Actor(){}
+    string getName()  {return _name;}
+    bool hasVisited() {return _visited;}
+    string getPrevConnection() {return _prevConnection;}
+    string getMovie() {return _movie;}
     
 };
 

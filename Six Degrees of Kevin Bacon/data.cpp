@@ -31,12 +31,3 @@ void data::addConnection(const string& movieID) {
     connected.push_back(movieID);
 }
 
-void data::getData() {
-    if (!connected.empty()) {
-        for (int i = 0; i < connected.size(); ++i) {
-            cout << connected.at(i) << endl;
-        }
-    }
-    
-}
-

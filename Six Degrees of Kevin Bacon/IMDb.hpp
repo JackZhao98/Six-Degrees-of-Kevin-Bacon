@@ -12,6 +12,7 @@
 #include <fstream>
 #include <sstream>
 #include <utility> // for pair::pair
+#include <string>
 #include "Tree/AVL Tree.hpp"
 #include "data.hpp"
 #include "Actor.hpp"

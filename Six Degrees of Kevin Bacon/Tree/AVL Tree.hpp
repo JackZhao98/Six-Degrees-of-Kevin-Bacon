@@ -48,11 +48,6 @@ public:
         return *this;
     }
     
-    // generic prints tree
-    void printTree();
-    
-    
-    
     // Friend insertion/extration operator
     friend
     std::ostream& operator <<(std::ostream& outs, const AVLTree<T>& tree){
@@ -123,12 +118,6 @@ inline bool AVLTree<T>::erase(const T& DEL_THIS) {
 template <class T>
 inline TreeNode<T>* AVLTree<T>::searchAVL(const T& FIND_THIS)const {
     return search(_root, FIND_THIS);
-}
-
-// pls work...
-template <class T>
-inline void AVLTree<T>::printTree() {
-    printData(_root);
 }
 
 template <class T>
