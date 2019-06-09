@@ -20,16 +20,27 @@ private:
     string _prevConnection;
     
 public:
-    Actor() {}
-    Actor(string whoAmI, string prevConnection) {
+    Actor(string whoAmI="no actor found") {
         _whoAmI = whoAmI;
-        _prevConnection = prevConnection;
     }
     ~Actor() {}
+    Actor(const Actor& other) {
+        _whoAmI = other._whoAmI;
+        _prevConnection = other._prevConnection;
+    }
+    Actor& operator= (const Actor& other) {
+        if (this != &other)  {
+            _whoAmI = other._whoAmI;
+            _prevConnection = other._prevConnection;
+        }
+        return *this;
+    }
     string getName() {return _whoAmI;}
     string getPrevConnection() {return _prevConnection;}
     void setName(string myName) {_whoAmI=myName;}
     void setPrevConnection(string prev) {_prevConnection=prev;}
+
+    bool empty() { return (_whoAmI=="no actor found") ? (true) : (false); }
     
     friend bool operator> (const Actor& a1, const Actor& a2) {
         return a1._whoAmI > a2._whoAmI;
