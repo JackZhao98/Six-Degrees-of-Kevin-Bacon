@@ -17,7 +17,8 @@ using namespace std;
 class Actor {
 private:
     string _whoAmI;
-    string _prevConnection;
+//    string _prevConnection;
+    Actor* _prevConnection;
     
 public:
     Actor(string whoAmI="no actor found") {
@@ -35,10 +36,14 @@ public:
         }
         return *this;
     }
-    string getName() {return _whoAmI;}
-    string getPrevConnection() {return _prevConnection;}
+    string getName() const {return _whoAmI;}
+    Actor& getPrevConnection()  {return *_prevConnection;}
+//    string getPrevConnection() {return _prevConnection;}
     void setName(string myName) {_whoAmI=myName;}
-    void setPrevConnection(string prev) {_prevConnection=prev;}
+    void setPrevConnection(Actor& prev) {
+        _prevConnection = &prev;
+    }
+//    void setPrevConnection(string prev) {_prevConnection=prev;}
 
     bool empty() { return (_whoAmI=="no actor found") ? (true) : (false); }
     
@@ -53,6 +58,10 @@ public:
     }
     friend bool operator<= (const Actor& a1, const Actor& a2) {
         return a1._whoAmI <= a2._whoAmI;
+    }
+    friend ostream& operator<<(ostream& os, const Actor& a) {
+        os << a.getName();
+        return os;
     }
     
 };

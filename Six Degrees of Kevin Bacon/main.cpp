@@ -6,7 +6,7 @@
 //  Copyright © 2019 Jack Zhao. All rights reserved.
 //
 
-#include <iostream>       // std::cout
+#include <iostream>
 #include <stack>
 #include <chrono>
 #include "IMDb.hpp"
@@ -29,77 +29,76 @@ int main(int argc, const char * argv[]) {
     auto end = chrono::high_resolution_clock::now();
     auto duration=end-start;
     
-    //    imdb.getCredits("George Cukor", films);
-    //    imdb.getCast("Gone with the Wind", casts);
-    //    for (int i = 0; i < films.size(); ++ i) {
-    //        cout << films[i] << "\n";
-    //    }
-    //    for (int i = 0; i < casts.size(); ++ i) {
-    //        cout << casts[i] << "\n";
-    //    }
+    
     
     map<Actor,string> dict;
     string person1 = "Logan Lerman";//"Emma Watson";
     string person2 = "Eddie Redmayne";//"Benedict Cumberbatch";
     Actor me = findTarget(imdb, person1, person2, dict);
-    //    if (me.empty())
     cout << me.getName() << endl;
-    //    cout << me.getPrevConnection();
-    //    cout << dict[me.getPrevConnection()] << endl;
-    //    while (me.getName()!=person1) {
-    //        cout << dict[me.getPrevConnection()] << endl;
-    //        me.getName() = me.getPrevConnection();
-    string name = me.getName();
-    while (name != person1) {
-        cout << me.getName() << " knows " << me.getPrevConnection()<< endl;
 
-    }
-    //    }
+    Actor emma("Karen Rosenfelt");
+    cout << dict[emma] << endl;
+    
+    
+    
     return 0;
 }
 
 Actor findTarget(IMDb imdb, string person1, string person2, map<Actor,string>& dict) {
-    queue<string> friends;
+    
+    queue<Actor> friends;
     vector<string> _films, _casts;
-    string previousConnection = person1;
     bool foundConnection = false;
-    // put person1 into the queue
-    friends.push(person1);
-    // if person is not in the dictionary
-    int loop =0;
-    while ( !friends.empty() || !foundConnection) {
-        // Get all of person1's films and store into _films vector
-        imdb.getCredits(person1, _films);
+    
+    // Make person1 into an Actor obj a1. Put a1 into the friends queue
+    Actor a1(person1);
+    friends.push(a1);
+    
+    int loop = 0;
+    // continue the loop until: 1. friend queue is exhausted or 2. person2 is found
+    while ( !friends.empty() && !foundConnection) {
+        // Get all of a1's films and store into _films vector
+        imdb.getCredits(a1.getName(), _films);
         // Put each film into stack movieTites
         stack<string> movieTitles;
         for (int i = 0; i < _films.size(); ++i) {
             movieTitles.push(_films[i]);
         }
-        // Empty out the stack of movies
+        // Empty out the stack of movies to read in each movie's cast for the actor
         while (!movieTitles.empty()) {
-            // Get all of person1's co-casts
+            // Get all of a1's co-casts
             imdb.getCast(movieTitles.top(), _casts);
             // Iterate throgh all the casts and push them into dictionary / queue
-            Actor a;
             for (int i = 0; i < _casts.size(); ++i) {
-                if (_casts[i]!=person1) {
-                    a.setName(_casts[i]);
-                    a.setPrevConnection(person1);
-                    dict.insert(pair<Actor, string>(a, movieTitles.top() ));
-                    friends.push(_casts[i]);
+                // person2's name is encountered
+                // skip instance where the cast is the originator himself
+                Actor a2;
+                a2.setName(_casts[i]);
+                a2.setPrevConnection(a1);
+                if (_casts[i]!=a1.getName()) {
+                    //                    Actor a2;
+                    //                    a2.setName(_casts[i]);
+                    //                    a2.setPrevConnection(a1);
+                    dict.insert(pair<Actor, string>(a2, movieTitles.top()));
+                    friends.push(a2);
                 }
                 if (_casts[i]==person2) {
-                    //                    cout << a.getName() << " and " << a.getPrevConnection() << " know each other through movie \""<< dict[a] << "\""<< endl;
+                    cout  << "found!\n";
+                    //                    cout << a1.getName() <<" and " << (a1.getPrevConnection()).getName() << " konw through " << dict[a1]  << endl;
+                    cout << a2 << " is connected to " << a2.getPrevConnection() << endl;
                     foundConnection = !foundConnection;
-                    return a;
+                    return a2;
                 }
+                
             }
             movieTitles.pop();
+            
         }
         friends.pop();
         if (!friends.empty())
-            person1=friends.front();
-        //        cout << ++loop <<  " " << person1<< endl;
+            a1 = friends.front();
+        cout << ++loop <<  " " << a1.getName()<< endl;
     }
     
     dict.clear();
