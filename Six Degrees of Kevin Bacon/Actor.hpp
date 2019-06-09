@@ -28,6 +28,8 @@ public:
     ~Actor() {}
     string getName() {return _whoAmI;}
     string getPrevConnection() {return _prevConnection;}
+    void setName(string myName) {_whoAmI=myName;}
+    void setPrevConnection(string prev) {_prevConnection=prev;}
     
     friend bool operator> (const Actor& a1, const Actor& a2) {
         return a1._whoAmI > a2._whoAmI;

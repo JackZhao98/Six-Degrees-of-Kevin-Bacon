@@ -108,17 +108,22 @@ bool findTarget(IMDb imdb, string person1, string person2, map<Actor,string>& di
             // Get all of person1's co-casts
             imdb.getCast(movieTitles.top(), _casts);
             // Iterate throgh all the cast and push them into dictionary / queue
+            Actor a;
             for (int i = 0; i < _casts.size(); ++i) {
                 if (_casts[i]!=person1) {
-                    Actor a(_casts[i], person1);
+                    a.setName(_casts[i]);
+                    a.setPrevConnection(person1);
+//                    Actor a(_casts[i], person1);
 //                    cout << a.getName() << " is connected to " << a.getPrevConnection() << endl ;
                     dict.insert(pair<Actor, string>(a, movieTitles.top() ));
+//                    cout << dict[a] << endl;
 //                    cout << _casts[i] << " is conneced to " << person1<< endl;
 //                    dict[a] = movieTitles.top();
 //                    dict[Actor(_casts[i], person1)] = movieTitles.top();
                     friends.push(_casts[i]);
                 }
                 if (_casts[i]==person2) {
+                    cout << a.getName() << " and " << a.getPrevConnection() << " know each other through movie \""<< dict[a] << "\""<< endl;
                     return true;
                 }
             }
