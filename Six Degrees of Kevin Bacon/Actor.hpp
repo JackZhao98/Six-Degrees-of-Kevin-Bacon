@@ -25,6 +25,7 @@ private:
     string _movie;
     
 public:
+//    Actor() {} // nothing don't use
     Actor(string name="Kevin Bacon", bool visited=true, string prevConnection="", string movie="") {
         _name = name;
         _visited = true;

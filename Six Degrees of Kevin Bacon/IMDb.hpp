@@ -20,8 +20,8 @@ class IMDb {
 private:
     std::ifstream db;
     std::string dbPath;
-    AVLTree<data> actor;
-    AVLTree<data> movie;
+    AVLTree<data> _actor;
+    AVLTree<data> _movie;
     
     AVLTree<Actor> netWork;
     Actor KevinBacon;

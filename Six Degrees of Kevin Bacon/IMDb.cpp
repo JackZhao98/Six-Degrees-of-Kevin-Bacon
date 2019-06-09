@@ -20,7 +20,7 @@ IMDb::~IMDb() {
     db.close();
 }
 
-IMDb::IMDb(const IMDb& other): dbPath(other.dbPath), actor(other.actor), movie(other.movie) {
+IMDb::IMDb(const IMDb& other): dbPath(other.dbPath), _actor(other._actor), _movie(other._movie) {
     db.close();
     db.open(dbPath);
 }
@@ -28,8 +28,8 @@ IMDb::IMDb(const IMDb& other): dbPath(other.dbPath), actor(other.actor), movie(o
 IMDb& IMDb::operator=(const IMDb& other) {
     if (this != &other) {
         dbPath = other.dbPath;
-        actor = other.actor;
-        movie = other.movie;
+        _actor = other._actor;
+        _movie = other._movie;
         db.close();
         db.open(dbPath);
     }
@@ -40,22 +40,22 @@ void IMDb::searchDataBase(string name) {
 }
 
 void IMDb::loadDataBase() {
-    string line, _movie, _actor, _prevActor, _prevMovie;
+    string line, movieTitle, actorName, prevActor, prevMovie;
     
     while (db) {
         string connection;
         getline(db,line);
         stringstream ss;
         ss.str(line);
-        getline(ss,_movie,'\t');
-        getline(ss,_actor,'\t');
+        getline(ss,movieTitle,'\t');
+        getline(ss,actorName,'\t');
         
-        actor.insertWithReturnPointer(data(_actor)) -> data().addConnection(_movie);
-        movie.insertWithReturnPointer(data(_movie)) -> data().addConnection(_actor);
+        _actor.insertWithReturnPointer(data(actorName)) -> data().addConnection(movieTitle);
+        _movie.insertWithReturnPointer(data(movieTitle)) -> data().addConnection(actorName);
     }
 }
 bool IMDb::getCredits(const string& actorName, vector<string>& films)const {
-    TreeNode<data>* temp = actor.searchAVL(data(actorName));
+    TreeNode<data>* temp = _actor.searchAVL(data(actorName));
     if (!temp)
         return false;
     
@@ -67,7 +67,7 @@ bool IMDb::getCredits(const string& actorName, vector<string>& films)const {
 }
 
 bool IMDb::getCast(const string& movieTitle, vector<string>& casts)const {
-    TreeNode<data>* temp = movie.searchAVL(data(movieTitle));
+    TreeNode<data>* temp = _movie.searchAVL(data(movieTitle));
     if (!temp)
         return false;
     
