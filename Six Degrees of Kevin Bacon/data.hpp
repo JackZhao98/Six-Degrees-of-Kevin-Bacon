@@ -1,13 +1,13 @@
 //
-//  actors.hpp
+//  data.hpp
 //  Six Degrees of Kelvin Bacon
 //
 //  Created by Jack Zhao on 5/30/19.
 //  Copyright © 2019 Jack Zhao. All rights reserved.
 //
 
-#ifndef actors_hpp
-#define actors_hpp
+#ifndef data_hpp
+#define data_hpp
 
 #include <string>
 #include <vector>
@@ -58,4 +58,4 @@ public:
 };
 
 
-#endif /* actors_hpp */
+#endif /* data_hpp */

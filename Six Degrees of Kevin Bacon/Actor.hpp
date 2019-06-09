@@ -9,35 +9,38 @@
 #ifndef Actor_hpp
 #define Actor_hpp
 
-#include <stdio.h>
 #include <vector>
 #include <iostream>
 #include <string>
-#include <utility>
-#include "Heap/BinaryHeap.hpp"
-#include <queue>
+
 using namespace std;
 class Actor {
 private:
-    string _name;
-    bool _visited;
+    string _whoAmI;
     string _prevConnection;
-    string _movie;
     
 public:
-//    Actor() {} // nothing don't use
-    Actor(string name="Kevin Bacon", bool visited=true, string prevConnection="", string movie="") {
-        _name = name;
-        _visited = true;
+    Actor() {}
+    Actor(string whoAmI, string prevConnection) {
+        _whoAmI = whoAmI;
         _prevConnection = prevConnection;
-        _movie = movie;
     }
-    
-    ~Actor(){}
-    string getName()  {return _name;}
-    bool hasVisited() {return _visited;}
+    ~Actor() {}
+    string getName() {return _whoAmI;}
     string getPrevConnection() {return _prevConnection;}
-    string getMovie() {return _movie;}
+    
+    friend bool operator> (const Actor& a1, const Actor& a2) {
+        return a1._whoAmI > a2._whoAmI;
+    }
+    friend bool operator< (const Actor& a1, const Actor& a2) {
+        return a1._whoAmI < a2._whoAmI;
+    }
+    friend bool operator>= (const Actor& a1, const Actor& a2) {
+        return a1._whoAmI >= a2._whoAmI;
+    }
+    friend bool operator<= (const Actor& a1, const Actor& a2) {
+        return a1._whoAmI <= a2._whoAmI;
+    }
     
 };
 

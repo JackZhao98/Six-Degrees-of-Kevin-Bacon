@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8270C27C22A9DCC2001AAA73 /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8270C27A22A9DCC2001AAA73 /* Actor.cpp */; };
 		EB4FCB5C22A04D0E0039802E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4FCB5B22A04D0E0039802E /* main.cpp */; };
 		EB4FCB6622A0510A0039802E /* data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4FCB6422A0510A0039802E /* data.cpp */; };
 		EBF0954922A8DFAE0081C9C4 /* IMDb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBF0954722A8DFAE0081C9C4 /* IMDb.cpp */; };
@@ -27,10 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8270C27A22A9DCC2001AAA73 /* Actor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Actor.cpp; sourceTree = "<group>"; };
 		8270C27B22A9DCC2001AAA73 /* Actor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Actor.hpp; sourceTree = "<group>"; };
 		8270C27D22A9E1EA001AAA73 /* Heap */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Heap; sourceTree = "<group>"; };
-		8270C27F22AB135D001AAA73 /* Network.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Network.hpp; sourceTree = "<group>"; };
 		EB4FCB5822A04D0E0039802E /* Six Degrees of Kelvin Bacon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Six Degrees of Kelvin Bacon"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB4FCB5B22A04D0E0039802E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		EB4FCB6322A050530039802E /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = SOURCE_ROOT; };
@@ -77,14 +74,12 @@
 				8270C27D22A9E1EA001AAA73 /* Heap */,
 				EBF0954522A8DACC0081C9C4 /* Tree */,
 				EB4FCB5B22A04D0E0039802E /* main.cpp */,
-				8270C27F22AB135D001AAA73 /* Network.hpp */,
 				EBF0954822A8DFAE0081C9C4 /* IMDb.hpp */,
 				EBF0954722A8DFAE0081C9C4 /* IMDb.cpp */,
 				8270C27B22A9DCC2001AAA73 /* Actor.hpp */,
 				EB4FCB6422A0510A0039802E /* data.cpp */,
 				EB4FCB6522A0510A0039802E /* data.hpp */,
 				EB4FCB6322A050530039802E /* .gitattributes */,
-				8270C27A22A9DCC2001AAA73 /* Actor.cpp */,
 				EBF0954622A8DF040081C9C4 /* IMDb.tsv */,
 			);
 			path = "Six Degrees of Kevin Bacon";
@@ -160,7 +155,6 @@
 				EB4FCB5C22A04D0E0039802E /* main.cpp in Sources */,
 				EBF0954922A8DFAE0081C9C4 /* IMDb.cpp in Sources */,
 				EB4FCB6622A0510A0039802E /* data.cpp in Sources */,
-				8270C27C22A9DCC2001AAA73 /* Actor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,13 +10,14 @@
 #include <stack>
 #include <chrono>
 #include "IMDb.hpp"
-#include "Heap/BinaryHeap.hpp"
 #include <queue>
 #include <string>
 #include <map>
+#include "Actor.hpp"
+#include <utility>
 using namespace std;
 
-bool findTarget(IMDb imdb, string person1, string person2, map<string,string>& dict);
+bool findTarget(IMDb imdb, string person1, string person2, map<Actor,string>& dict);
 
 int main(int argc, const char * argv[]) {
     // insert code here...
@@ -80,15 +81,16 @@ int main(int argc, const char * argv[]) {
     //        cout <<  ++i << " " << it->first << " in " << it->second << "\n";
     //    }
     //
-    map<string,string> dict;
+    map<Actor,string> dict;
     cout << findTarget(imdb, "Kevin Bacon", "Alan Rickman", dict) << endl;
     return 0;
 }
 
-bool findTarget(IMDb imdb, string person1, string person2, map<string,string>& dict) {
+bool findTarget(IMDb imdb, string person1, string person2, map<Actor,string>& dict) {
 //    map<string,string>::iterator it = dict.find(person2);
     queue<string> friends;
     vector<string> _films, _casts;
+    string previousConnection = person1;
     
     // put person1 into the queue
     friends.push(person1);
@@ -108,11 +110,15 @@ bool findTarget(IMDb imdb, string person1, string person2, map<string,string>& d
             // Iterate throgh all the cast and push them into dictionary / queue
             for (int i = 0; i < _casts.size(); ++i) {
                 if (_casts[i]!=person1) {
-                    dict.insert(pair<string, string>(_casts[i], movieTitles.top()));
+                    Actor a(_casts[i], person1);
+//                    cout << a.getName() << " is connected to " << a.getPrevConnection() << endl ;
+                    dict.insert(pair<Actor, string>(a, movieTitles.top() ));
+//                    cout << _casts[i] << " is conneced to " << person1<< endl;
+//                    dict[a] = movieTitles.top();
+//                    dict[Actor(_casts[i], person1)] = movieTitles.top();
                     friends.push(_casts[i]);
                 }
                 if (_casts[i]==person2) {
-                    cout << _casts[i] << endl;
                     return true;
                 }
             }

@@ -1,5 +1,5 @@
 //
-//  actors.cpp
+//  data.cpp
 //  Six Degrees of Kelvin Bacon
 //
 //  Created by Jack Zhao on 5/30/19.

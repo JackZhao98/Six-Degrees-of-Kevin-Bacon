@@ -11,20 +11,17 @@
 
 #include <fstream>
 #include <sstream>
-#include <utility> // for pair::pair
-#include <string>
+#include <utility>
 #include "Tree/AVL Tree.hpp"
 #include "data.hpp"
-#include "Actor.hpp"
+
 class IMDb {
 private:
     std::ifstream db;
     std::string dbPath;
     AVLTree<data> _actor;
     AVLTree<data> _movie;
-    
-    AVLTree<Actor> netWork;
-    Actor KevinBacon;
+
     
 public:
     IMDb();
