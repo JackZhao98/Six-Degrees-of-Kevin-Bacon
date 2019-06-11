@@ -66,6 +66,8 @@ bool operator== (const Actor& a1, const Actor& a2) {
     return a1._name == a2._name;
 }
 ostream& operator<<(ostream& os, const Actor& a) {
-    os << a.getName() << " " << a.getPrevious() << " in " << a.getPath() << endl;
+    os << a.getName() << a.getPath() << endl;
+//    os << "a.prev " << a.getPrevious() << endl;
+    
     return os;
 }

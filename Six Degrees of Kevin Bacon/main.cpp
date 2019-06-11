@@ -35,7 +35,7 @@ int main(int argc, const char * argv[]) {
     //    cout << actorTree.getSize() << endl;
     //    cout << movieTree.getSize() << endl;
     findTarget();
-    cout << "!!!\n";
+    cout << "\n";
     return 0;
 }
 
@@ -43,8 +43,8 @@ void findTarget() {
     IMDb imdb;
     imdb.loadDataBase();
     vector<string> films, casts;
-    string a1 = "Alan Rickman";
-    string a2 = "Leonardo DiCaprio";
+    string a1 = "Martin Freeman";
+    string a2 = "Alan Rickman";
     AVLTree<Actor> actorTree;
     AVLTree<Movie> movieTree;
     string path =  "";
@@ -90,7 +90,7 @@ void findTarget() {
                             // Actor has already appeared before. Do nothing
                         }
                         if (casts[j] == a2) {
-                            cout << "found " << act;
+                            cout << "found!\n" << act;
                             return ;
                             
                         }
