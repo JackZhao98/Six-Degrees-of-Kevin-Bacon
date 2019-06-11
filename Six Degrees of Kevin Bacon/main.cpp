@@ -54,8 +54,8 @@ void findTarget() {
     Actor src(a1, path, previous);
     actorTree.insertWithReturnPointer(src);
     string lastPath;
-    
-    while (!qu.empty()) {
+    bool found = false;
+    while (!qu.empty() && !found) {
         
         string currentActor = qu.front();
         
@@ -90,6 +90,7 @@ void findTarget() {
                         }
                         if (casts[j] == a2) {
                             cout << "found " << act;
+                            found = true;
                         }
                     }
                 }
@@ -100,5 +101,4 @@ void findTarget() {
         qu.pop();
         
     }
-    cout << "Did not find " << a2 << endl;
 }
