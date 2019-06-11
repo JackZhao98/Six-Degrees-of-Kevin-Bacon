@@ -7,56 +7,56 @@
 //
 
 #include <iostream>
-#include <stack>
 #include <chrono>
-#include "IMDb.hpp"
 #include <queue>
 #include <string>
-#include <map>
+#include "IMDb.hpp"
 #include "Actor.hpp"
-#include <utility>
 #include "Movie.hpp"
 using namespace std;
 
-//Actor findTarget(IMDb imdb, string person1, string person2, map<Actor,string>& dict);
+void prompt(string& src, string& dest);
+Actor findTarget(IMDb& imdb, string& src, string& dest);
 
-Actor findTarget();
+
 int main(int argc, const char * argv[]) {
     
+    IMDb imdb;
+    imdb.loadDataBase();
     
-    //    auto start = chrono::high_resolution_clock::now();
+    char exit;
+    do {
+        
+        string a1, a2;
+        prompt(a1, a2);
+        
+        cout << findTarget(a1, a2);
+        cout << "Press Q to quit\n";
+        cin >> exit;
+    } while (exit!=tolower('Q'));
     
-    //    auto end = chrono::high_resolution_clock::now();
-    //    auto duration=end-start;
-    
-    
-    //    Actor d = actorTree.insertWithReturnPointer(src)->getData();
-    //    cout << d.getPath() << endl;
-    //    cout << actorTree.getSize() << endl;
-    //    cout << movieTree.getSize() << endl;
-    cout << findTarget();
     return 0;
 }
 
-Actor findTarget() {
-    IMDb imdb;
-    imdb.loadDataBase();
-    vector<string> films, casts;
-    string a1 = "Kevin Bacon";
-    string a2 = "Hilary Duff";
-    AVLTree<Actor> actorTree;
-    AVLTree<Movie> movieTree;
-    string path =  "";
-    string previous = "";
-    queue<string> qu; // front of the person
-    qu.push(a1);
-    Actor src(a1, path, previous);
-    actorTree.insertWithReturnPointer(src);
+Actor findTarget(IMDb& imdb, string& a1, string& a2) {
+    
+    vector<string> films, casts; // vectors to contain all the films and casts
+                                 // assoc. with an actor and film respectfully
+    AVLTree<Actor> actorTree;    // tree to contain visited actors (no duplicates)
+    AVLTree<Movie> movieTree;    // tree to contain visited movies (no duplicates)
+    queue<string> qu;            // queue to contain actor (names) assoc. with
+                                 // a1 (no duplicates)
+    
+    qu.push(a1);                 // push a1 into the queue whose movies we want to
+                                 // extract/examine to find a2
+    Actor src(a1, "", "");      // construct a src actor object
+    actorTree.insertWithReturnPointer(src); // put src actor object in actorTree
+    
     bool found = false;
     while (!qu.empty() && !found) {
         
         string currentActor = qu.front();
-
+        
         imdb.getCredits(currentActor, films);
         
         for (int i = 0; i<films.size(); ++i) {
@@ -84,8 +84,15 @@ Actor findTarget() {
                             qu.push(casts[j]); // push into queue of actors to examine
                         }
                         // checking if target is found
-                        if (casts[j] == a2)
-                            return act; //cout << act;
+                        if (casts[j] == a2) {
+                            //cout << act;
+                            act.addBaconLevel(); // bump up bacon number
+                            return act;
+                        }
+                        // if target is deeper than 5 levels, stop looking
+                        if (act.getBaconLevel() > 5) {
+                            return Actor();
+                        }
                     } // end of actorTree sorting
                     // keep track of bacon number
                 } // end of the loop for extraditing actor from the film
@@ -94,4 +101,14 @@ Actor findTarget() {
         qu.pop();
     }
     return Actor();
+}
+
+void prompt(string& src, string& dest) {
+    
+    cout << "Please choose an actor: ";
+    getline(cin, src);
+    cout << "Please choose anctor as target: ";
+    getline(cin, dest);
+    
+    cout << "Please wait while I load...\n";
 }

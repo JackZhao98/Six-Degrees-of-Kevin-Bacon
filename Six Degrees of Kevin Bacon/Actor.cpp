@@ -46,6 +46,8 @@ void Actor::addConnection(string path, string prev) {
 
 void Actor::setName(string myName) {_name=myName;}
 
+void Actor::addBaconLevel() {++_baconLevel;}
+
 string Actor::getPath() const {return _path;}
 
 string Actor::getName() const {return _name;}

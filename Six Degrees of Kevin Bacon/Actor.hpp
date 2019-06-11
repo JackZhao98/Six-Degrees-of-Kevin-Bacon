@@ -30,6 +30,7 @@ public:
     void clear();
     void setName(string myName);
     void addConnection(string path, string prev);
+    void addBaconLevel();
     
     string getPrevious() const {return _previous;}
     string getPath() const;
