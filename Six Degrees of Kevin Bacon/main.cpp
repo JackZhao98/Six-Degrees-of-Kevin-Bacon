@@ -35,6 +35,7 @@ int main(int argc, const char * argv[]) {
     //    cout << actorTree.getSize() << endl;
     //    cout << movieTree.getSize() << endl;
     findTarget();
+    cout << "!!!\n";
     return 0;
 }
 
@@ -90,7 +91,8 @@ void findTarget() {
                         }
                         if (casts[j] == a2) {
                             cout << "found " << act;
-                            found = true;
+                            return ;
+                            
                         }
                     }
                 }
