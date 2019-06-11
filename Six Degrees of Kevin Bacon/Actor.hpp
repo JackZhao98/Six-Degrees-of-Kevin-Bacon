@@ -32,10 +32,10 @@ public:
     void addConnection(string path, string prev);
     void addBaconLevel();
     
-    string getPrevious() const {return _previous;}
+    string getPrevious() const;
     string getPath() const;
     string getName() const;
-    int getBaconLevel() const {return _baconLevel;}
+    int getBaconLevel() const;
     bool empty();
     
     friend bool operator> (const Actor& a1, const Actor& a2);

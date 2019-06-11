@@ -41,16 +41,21 @@ void Actor::clear() {
 
 void Actor::addConnection(string path, string prev) {
     _path = " [" + _path + "] " + _previous +" ["+ path + "] " + prev;
-    ++_baconLevel; // every time addConnection() is called, bacon level increments
+    // every time addConnection() is called, bacon level increments
+    addBaconLevel();
 }
 
 void Actor::setName(string myName) {_name=myName;}
 
 void Actor::addBaconLevel() {++_baconLevel;}
 
+string Actor::getPrevious() const {return _previous;}
+
 string Actor::getPath() const {return _path;}
 
 string Actor::getName() const {return _name;}
+
+int Actor::getBaconLevel() const {return _baconLevel;}
 
 bool Actor::empty() { return (_name=="no actor found") ? (true) : (false); }
 

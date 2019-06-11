@@ -14,92 +14,85 @@
 #include "Actor.hpp"
 #include "Movie.hpp"
 using namespace std;
-
+const int MAX_BACON_LEVEL = 5;
 void prompt(string& src, string& dest);
-Actor findTarget(IMDb& imdb, string& src, string& dest);
-
+Actor findTarget(IMDb& imdb, string src, string dest);
 
 int main(int argc, const char * argv[]) {
     
     IMDb imdb;
     imdb.loadDataBase();
     
-    char exit;
-    do {
-        
-        string a1, a2;
-        prompt(a1, a2);
-        
-        cout << findTarget(a1, a2);
-        cout << "Press Q to quit\n";
-        cin >> exit;
-    } while (exit!=tolower('Q'));
+    
+    string a1 = "";                   // src actor name
+    string a2 = "";                   // dest ctor name
+    prompt(a1, a2);                   // ask users to pick the names
+    cout << findTarget(imdb, a1, a2); // bsf calculation for shortest path
+    // error: the bacon number returns incorrectly here but not in the findTarget fxn
     
     return 0;
 }
 
-Actor findTarget(IMDb& imdb, string& a1, string& a2) {
+// Breadth Search First
+Actor findTarget(IMDb& imdb, string a1, string a2) {
     
     vector<string> films, casts; // vectors to contain all the films and casts
-                                 // assoc. with an actor and film respectfully
+    // assoc. with an actor and film respectfully
     AVLTree<Actor> actorTree;    // tree to contain visited actors (no duplicates)
     AVLTree<Movie> movieTree;    // tree to contain visited movies (no duplicates)
     queue<string> qu;            // queue to contain actor (names) assoc. with
-                                 // a1 (no duplicates)
+    // a1 (no duplicates)
     
     qu.push(a1);                 // push a1 into the queue whose movies we want to
-                                 // extract/examine to find a2
-    Actor src(a1, "", "");      // construct a src actor object
+    // extract/examine to find a2
+    Actor src(a1, "", "");       // construct a src actor object
     actorTree.insertWithReturnPointer(src); // put src actor object in actorTree
     
-    bool found = false;
+    bool found = false;          // boolean that breaks and returns if a2 is found
+    
     while (!qu.empty() && !found) {
+        string currentActor = qu.front(); // currentActor is actor (name) used to
+        // explore movie paths leading to other actors
+        imdb.getCredits(currentActor, films);  // query films and load into films vector
         
-        string currentActor = qu.front();
-        
-        imdb.getCredits(currentActor, films);
-        
-        for (int i = 0; i<films.size(); ++i) {
-            
+        for(int i=0;i<films.size();++i) {
+            // go through each film. Use film to find deeper actor/film connections and
+            // sort them into respective trees IFF not already in the trees
             if (!movieTree.searchAVL(Movie(films[i]))) {
-                
-                // query film & put into tree iff not there. If film already there, break
+                // load movie to tree and then query casts and load into casts vector
                 movieTree.insertWithReturnPointer(Movie(films[i]));
-                
-                imdb.getCast(films[i], casts); // query casts & put into tree iff not there
+                imdb.getCast(films[i], casts);
                 
                 for (int j=0; j<casts.size(); ++j) {
-                    
-                    // sorting actors into the actorTree
+                    // Skip/Avoid examining actor in the movie casts who is myself
                     if ( casts[j]!=currentActor) {
-                        Actor act;
-                        Actor prevAct;
+                        Actor act, prevAct; // create temp actor objects
+                        // Sort actors into the actorTree IFF not already in tree
                         if (!actorTree.searchAVL(Actor(casts[j]))) {
-                            // if Actor is not already in the tree, add it to the tree
+                            // add actor to tree
                             act = actorTree.insertWithReturnPointer(Actor(casts[j], films[i], currentActor))->getData();
-                            // and update its path to include the previous connecting actor
+                            // Update added actor's path to accont for prev. connection
                             prevAct = actorTree.searchAVL(Actor(currentActor))->getData();
                             act.addConnection(prevAct.getPath(), prevAct.getPrevious());
-                            // cout << act;
-                            qu.push(casts[j]); // push into queue of actors to examine
+                            // Push actor (name) into queue of actors for examining paths
+                            qu.push(casts[j]);
                         }
-                        // checking if target is found
+                        // Return if target is found
                         if (casts[j] == a2) {
-                            //cout << act;
-                            act.addBaconLevel(); // bump up bacon number
+                            act.addBaconLevel(); // Round up a level of bacon number
+                            cout << act;
                             return act;
                         }
-                        // if target is deeper than 5 levels, stop looking
-                        if (act.getBaconLevel() > 5) {
+                        // Stop looking if target is more than 5 levels deep
+                        if (act.getBaconLevel() > MAX_BACON_LEVEL) {
                             return Actor();
                         }
                     } // end of actorTree sorting
-                    // keep track of bacon number
-                } // end of the loop for extraditing actor from the film
+                } // end of loop for extraditing actor from the film
             } // end of detecting a unique film and putting it in a tree
-        } // end of the loop for querrying the films of an actor
+        } // end of loop for querrying the films of an actor
         qu.pop();
-    }
+    }// end of loop for examining all viable actor candidates in 5 Bacon levels
     return Actor();
 }
 
