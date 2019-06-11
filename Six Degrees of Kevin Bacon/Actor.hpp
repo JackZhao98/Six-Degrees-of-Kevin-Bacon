@@ -19,38 +19,22 @@ private:
     string _name;
     string _path;
     string _previous;
+    int _baconLevel;
     
 public:
-    Actor(string name="no actor found", string path="", string previous="") {
-        _name = name;
-        _previous = previous;
-        _path = path;
-        
-        
-        
-    }
+    Actor(string name="no actor found", string path="", string previous="");
     ~Actor();
     Actor(const Actor& other);
     Actor& operator= (const Actor& other);
     
-    void clear() {
-        _name = "";
-        _path = "";
-        _previous = "";
-    }
-    
-    
+    void clear();
     void setName(string myName);
-
-    void addConnection(string path, string prev) {
-        _path = " [" + _path + "] " + _previous +" ["+ path + "] " + prev;
-    }
-    
+    void addConnection(string path, string prev);
     
     string getPrevious() const {return _previous;}
     string getPath() const;
     string getName() const;
-    
+    int getBaconLevel() const {return _baconLevel;}
     bool empty();
     
     friend bool operator> (const Actor& a1, const Actor& a2);

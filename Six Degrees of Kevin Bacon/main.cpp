@@ -20,7 +20,7 @@ using namespace std;
 
 //Actor findTarget(IMDb imdb, string person1, string person2, map<Actor,string>& dict);
 
-void findTarget();
+Actor findTarget();
 int main(int argc, const char * argv[]) {
     
     
@@ -34,73 +34,64 @@ int main(int argc, const char * argv[]) {
     //    cout << d.getPath() << endl;
     //    cout << actorTree.getSize() << endl;
     //    cout << movieTree.getSize() << endl;
-    findTarget();
-    cout << "\n";
+    cout << findTarget();
     return 0;
 }
 
-void findTarget() {
+Actor findTarget() {
     IMDb imdb;
     imdb.loadDataBase();
     vector<string> films, casts;
-    string a1 = "Martin Freeman";
-    string a2 = "Alan Rickman";
+    string a1 = "Kevin Bacon";
+    string a2 = "Hilary Duff";
     AVLTree<Actor> actorTree;
     AVLTree<Movie> movieTree;
     string path =  "";
     string previous = "";
-    
     queue<string> qu; // front of the person
     qu.push(a1);
     Actor src(a1, path, previous);
     actorTree.insertWithReturnPointer(src);
-    string lastPath;
     bool found = false;
     while (!qu.empty() && !found) {
         
         string currentActor = qu.front();
-        
+
         imdb.getCredits(currentActor, films);
-        for (int i = 0; i< films.size(); ++i) {
+        
+        for (int i = 0; i<films.size(); ++i) {
             
             if (!movieTree.searchAVL(Movie(films[i]))) {
-                
-                // TESTING
-                lastPath = currentActor + " " + films[i]; // construct a lastPath string
                 
                 // query film & put into tree iff not there. If film already there, break
                 movieTree.insertWithReturnPointer(Movie(films[i]));
                 
                 imdb.getCast(films[i], casts); // query casts & put into tree iff not there
                 
-                for (int j = 0; j<casts.size(); ++j) {
+                for (int j=0; j<casts.size(); ++j) {
                     
-                    if ( casts[j]!=currentActor)  {
+                    // sorting actors into the actorTree
+                    if ( casts[j]!=currentActor) {
                         Actor act;
                         Actor prevAct;
                         if (!actorTree.searchAVL(Actor(casts[j]))) {
                             // if Actor is not already in the tree, add it to the tree
                             act = actorTree.insertWithReturnPointer(Actor(casts[j], films[i], currentActor))->getData();
-                            // update the path
+                            // and update its path to include the previous connecting actor
                             prevAct = actorTree.searchAVL(Actor(currentActor))->getData();
                             act.addConnection(prevAct.getPath(), prevAct.getPrevious());
-//                            cout << act;
+                            // cout << act;
                             qu.push(casts[j]); // push into queue of actors to examine
-                        } else {
-                            // Actor has already appeared before. Do nothing
                         }
-                        if (casts[j] == a2) {
-                            cout << "found!\n" << act;
-                            return ;
-                            
-                        }
-                    }
-                }
-            }
-            
-        }
-        
+                        // checking if target is found
+                        if (casts[j] == a2)
+                            return act; //cout << act;
+                    } // end of actorTree sorting
+                    // keep track of bacon number
+                } // end of the loop for extraditing actor from the film
+            } // end of detecting a unique film and putting it in a tree
+        } // end of the loop for querrying the films of an actor
         qu.pop();
-        
     }
+    return Actor();
 }
