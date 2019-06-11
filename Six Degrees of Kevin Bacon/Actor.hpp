@@ -16,53 +16,69 @@
 using namespace std;
 class Actor {
 private:
-    string _whoAmI;
-//    string _prevConnection;
-    Actor* _prevConnection;
+    string _name;
+    string _path;
+    string _previous;
     
 public:
-    Actor(string whoAmI="no actor found") {
-        _whoAmI = whoAmI;
+    Actor(string name="no actor found", string path="", string previous="") {
+        _name = name;
+        
+        //        if (previous) {
+        //            path = previous->getName() + " " + previous->getPath() + " " + path;
+        //            Actor* _previous = new Actor(previous->getName(), previous->getPath());
+        //        } else
+        _previous = previous;
+        _path = path;
+        
+        
+        
     }
-    ~Actor() {}
-    Actor(const Actor& other) {
-        _whoAmI = other._whoAmI;
-        _prevConnection = other._prevConnection;
-    }
-    Actor& operator= (const Actor& other) {
-        if (this != &other)  {
-            _whoAmI = other._whoAmI;
-            _prevConnection = other._prevConnection;
-        }
-        return *this;
-    }
-    string getName() const {return _whoAmI;}
-    Actor& getPrevConnection()  {return *_prevConnection;}
-//    string getPrevConnection() {return _prevConnection;}
-    void setName(string myName) {_whoAmI=myName;}
-    void setPrevConnection(Actor& prev) {
-        _prevConnection = &prev;
-    }
-//    void setPrevConnection(string prev) {_prevConnection=prev;}
-
-    bool empty() { return (_whoAmI=="no actor found") ? (true) : (false); }
+    ~Actor();
+    Actor(const Actor& other);
+    Actor& operator= (const Actor& other);
     
-    friend bool operator> (const Actor& a1, const Actor& a2) {
-        return a1._whoAmI > a2._whoAmI;
+//    void setPath(Actor src, string name, string path)  {
+//
+//        cout << "temp path " << src.getPath() << " temp name " << src.getName() << endl;
+//        path = src.getName() + " & " + name + " : [" + path + "]\n";
+//        _path += path;
+//    }
+    
+    void clear() {
+        _name = "";
+        _path = "";
+        _previous = "";
+        //        if (_previous)
+        //            delete _previous;
+        //        _previous = nullptr;
     }
-    friend bool operator< (const Actor& a1, const Actor& a2) {
-        return a1._whoAmI < a2._whoAmI;
+    
+    
+    void setName(string myName);
+    //    void addPath(string og, string name, string path) {
+    //
+    //    }
+    void addConnection(string path, string prev) {
+        path = " "+path;
+        prev = " "+prev;
+        _path += prev;
+        _previous += path;
     }
-    friend bool operator>= (const Actor& a1, const Actor& a2) {
-        return a1._whoAmI >= a2._whoAmI;
-    }
-    friend bool operator<= (const Actor& a1, const Actor& a2) {
-        return a1._whoAmI <= a2._whoAmI;
-    }
-    friend ostream& operator<<(ostream& os, const Actor& a) {
-        os << a.getName();
-        return os;
-    }
+    
+    
+    string getPrevious() const {return _previous;}
+    string getPath() const;
+    string getName() const;
+    
+    bool empty();
+    
+    friend bool operator> (const Actor& a1, const Actor& a2);
+    friend bool operator< (const Actor& a1, const Actor& a2);
+    friend bool operator>= (const Actor& a1, const Actor& a2);
+    friend bool operator<= (const Actor& a1, const Actor& a2);
+    friend bool operator== (const Actor& a1, const Actor& a2);
+    friend ostream& operator<<(ostream& os, const Actor& a);
     
 };
 

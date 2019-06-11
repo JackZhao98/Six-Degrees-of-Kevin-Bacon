@@ -73,7 +73,7 @@ void clearTree(TreeNode<T>*& root) {
         clearTree(root -> smallerNode());
     if (root -> getGreaterNode())
         clearTree(root -> greaterNode());
-    delete root;
+//     delete root;  
     root = nullptr;
 }
 

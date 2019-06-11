@@ -15,93 +15,90 @@
 #include <map>
 #include "Actor.hpp"
 #include <utility>
+#include "Movie.hpp"
 using namespace std;
 
-Actor findTarget(IMDb imdb, string person1, string person2, map<Actor,string>& dict);
+//Actor findTarget(IMDb imdb, string person1, string person2, map<Actor,string>& dict);
 
+void findTarget();
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    IMDb imdb;
-    vector<string> films, casts;
-    
-    auto start = chrono::high_resolution_clock::now();
-    imdb.loadDataBase();
-    auto end = chrono::high_resolution_clock::now();
-    auto duration=end-start;
     
     
+    //    auto start = chrono::high_resolution_clock::now();
     
-    map<Actor,string> dict;
-    string person1 = "Logan Lerman";//"Emma Watson";
-    string person2 = "Eddie Redmayne";//"Benedict Cumberbatch";
-    Actor me = findTarget(imdb, person1, person2, dict);
-    cout << me.getName() << endl;
-
-    Actor emma("Karen Rosenfelt");
-    cout << dict[emma] << endl;
+    //    auto end = chrono::high_resolution_clock::now();
+    //    auto duration=end-start;
     
     
-    
+    //    Actor d = actorTree.insertWithReturnPointer(src)->getData();
+    //    cout << d.getPath() << endl;
+    //    cout << actorTree.getSize() << endl;
+    //    cout << movieTree.getSize() << endl;
+    findTarget();
     return 0;
 }
 
-Actor findTarget(IMDb imdb, string person1, string person2, map<Actor,string>& dict) {
+void findTarget() {
+    IMDb imdb;
+    imdb.loadDataBase();
+    vector<string> films, casts;
+    string a1 = "Alan Rickman";
+    string a2 = "Leonardo DiCaprio";
+    AVLTree<Actor> actorTree;
+    AVLTree<Movie> movieTree;
+    string path =  "";
+    string previous = "";
     
-    queue<Actor> friends;
-    vector<string> _films, _casts;
-    bool foundConnection = false;
+    queue<string> qu; // front of the person
+    qu.push(a1);
+    Actor src(a1, path, previous);
+    actorTree.insertWithReturnPointer(src);
+    string lastPath;
     
-    // Make person1 into an Actor obj a1. Put a1 into the friends queue
-    Actor a1(person1);
-    friends.push(a1);
-    
-    int loop = 0;
-    // continue the loop until: 1. friend queue is exhausted or 2. person2 is found
-    while ( !friends.empty() && !foundConnection) {
-        // Get all of a1's films and store into _films vector
-        imdb.getCredits(a1.getName(), _films);
-        // Put each film into stack movieTites
-        stack<string> movieTitles;
-        for (int i = 0; i < _films.size(); ++i) {
-            movieTitles.push(_films[i]);
-        }
-        // Empty out the stack of movies to read in each movie's cast for the actor
-        while (!movieTitles.empty()) {
-            // Get all of a1's co-casts
-            imdb.getCast(movieTitles.top(), _casts);
-            // Iterate throgh all the casts and push them into dictionary / queue
-            for (int i = 0; i < _casts.size(); ++i) {
-                // person2's name is encountered
-                // skip instance where the cast is the originator himself
-                Actor a2;
-                a2.setName(_casts[i]);
-                a2.setPrevConnection(a1);
-                if (_casts[i]!=a1.getName()) {
-                    //                    Actor a2;
-                    //                    a2.setName(_casts[i]);
-                    //                    a2.setPrevConnection(a1);
-                    dict.insert(pair<Actor, string>(a2, movieTitles.top()));
-                    friends.push(a2);
-                }
-                if (_casts[i]==person2) {
-                    cout  << "found!\n";
-                    //                    cout << a1.getName() <<" and " << (a1.getPrevConnection()).getName() << " konw through " << dict[a1]  << endl;
-                    cout << a2 << " is connected to " << a2.getPrevConnection() << endl;
-                    foundConnection = !foundConnection;
-                    return a2;
-                }
+    while (!qu.empty()) {
+        
+        string currentActor = qu.front();
+        
+        imdb.getCredits(currentActor, films);
+        for (int i = 0; i< films.size(); ++i) {
+            
+            if (!movieTree.searchAVL(Movie(films[i]))) {
                 
+                // TESTING
+                lastPath = currentActor + " " + films[i]; // construct a lastPath string
+                
+                // query film & put into tree iff not there. If film already there, break
+                movieTree.insertWithReturnPointer(Movie(films[i]));
+                
+                imdb.getCast(films[i], casts); // query casts & put into tree iff not there
+                
+                for (int j = 0; j<casts.size(); ++j) {
+                    
+                    if ( casts[j]!=currentActor)  {
+                        Actor act;
+                        Actor prevAct;
+                        if (!actorTree.searchAVL(Actor(casts[j]))) {
+                            // if Actor is not already in the tree, add it to the tree
+                            act = actorTree.insertWithReturnPointer(Actor(casts[j], films[i], currentActor))->getData();
+                            // update the path
+                            prevAct = actorTree.searchAVL(Actor(currentActor))->getData();
+                            act.addConnection(prevAct.getPath(), prevAct.getPrevious());
+//                            cout << act;
+                            qu.push(casts[j]); // push into queue of actors to examine
+                        } else {
+                            // Actor has already appeared before. Do nothing
+                        }
+                        if (casts[j] == a2) {
+                            cout << "found " << act;
+                        }
+                    }
+                }
             }
-            movieTitles.pop();
             
         }
-        friends.pop();
-        if (!friends.empty())
-            a1 = friends.front();
-        cout << ++loop <<  " " << a1.getName()<< endl;
+        
+        qu.pop();
+        
     }
-    
-    dict.clear();
-    Actor a("hihi");
-    return a;
-};
+    cout << "Did not find " << a2 << endl;
+}

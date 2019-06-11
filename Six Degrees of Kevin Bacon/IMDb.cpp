@@ -35,9 +35,6 @@ IMDb& IMDb::operator=(const IMDb& other) {
     }
     return *this;
 }
-void IMDb::searchDataBase(string name) {
-    
-}
 
 void IMDb::loadDataBase() {
     string line, movieTitle, actorName, prevActor, prevMovie;
@@ -54,6 +51,7 @@ void IMDb::loadDataBase() {
         _movie.insertWithReturnPointer(data(movieTitle)) -> data().addConnection(actorName);
     }
 }
+
 bool IMDb::getCredits(const string& actorName, vector<string>& films)const {
     TreeNode<data>* temp = _actor.searchAVL(data(actorName));
     if (!temp)

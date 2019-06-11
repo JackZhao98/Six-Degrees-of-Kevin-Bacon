@@ -11,13 +11,16 @@
 
 #include "Tree Functions.cpp"
 #include <iostream>
+#include "Actor.hpp"
 using namespace std;
 template <class T>
 class AVLTree {
 private:
     TreeNode<T>* _root;
     unsigned int _size;
-    bool searchAVL(const T& target, TreeNode<T>*& found)const;
+    bool searchAVL(const T& target, TreeNode<T>*& found) const;
+    string _path;
+//    vector<Actor> connection;
     // Boolean, return true if the node has been found.
 public:
     AVLTree();
@@ -25,7 +28,7 @@ public:
     ~AVLTree();
     AVLTree(const AVLTree& OTHER);
     AVLTree& operator =(const AVLTree& RHS);
-    
+    void setPath(string path);
     const TreeNode<T>*& getRoot() {return _root;}
     // Access the root. (const type)
     TreeNode<T>*& root() {return _root;}
@@ -39,7 +42,7 @@ public:
     // Insert node to the avl tree.
     bool erase(const T& DEL_THIS);
     // Erase a node with given T type content.
-    TreeNode<T>* searchAVL(const T& FIND_THIS)const;
+    TreeNode<T>* searchAVL(const T& FIND_THIS) const;
     // Search AVL tree, return the "found" key node.
     void clear();
     // Extraction operator.
@@ -64,12 +67,13 @@ public:
 };
 
 template <class T>
-inline AVLTree<T>::AVLTree(): _root(nullptr), _size(0) {}
+inline AVLTree<T>::AVLTree(): _root(nullptr), _size(0), _path("") {}
 
 template <class T>
 inline AVLTree<T>::AVLTree(const T* sorted, unsigned int size): _root(nullptr) {
     _root = list_to_tree(sorted, size);
     _size = size;
+    _path = "";
 }
 
 template <class T>
@@ -91,6 +95,12 @@ inline AVLTree<T>& AVLTree<T>::operator =(const AVLTree& RHS) {
     }
     return *this;
 }
+
+//template <class T>
+//inline void AVLTree<T>::setPath(string path) {
+//    path += " -> ";
+//    _path += path;
+//}
 
 template <class T>
 inline bool AVLTree<T>::insert(const T& INS_THIS) {
