@@ -10,12 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Six Degrees of Kevin Bacon/IMDb.cpp"
-            timestampString = "581535714.2013201"
+            timestampString = "582005300.7485811"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "IMDb::accessActor(const string&amp; huffmanCode, int index)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Six Degrees of Kevin Bacon/path.cpp"
+            timestampString = "582005300.74866"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "path::buildPath(const std::string&amp; startActor, const std::string&amp; targetActor, const IMDb&amp; database)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

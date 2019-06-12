@@ -36,7 +36,7 @@ IMDb& IMDb::operator=(const IMDb& other) {
 
 void IMDb::loadDataBase() {
     string line, _movie, _actor;
-    
+    int count = 0;
     while (db) {
         getline(db,line);
         stringstream ss;
@@ -47,7 +47,12 @@ void IMDb::loadDataBase() {
         actor.insertWithReturnPointer(data(_actor)) -> data().addConnection(_movie);
         movie.insertWithReturnPointer(data(_movie)) -> data().addConnection(_actor);
         
+        if (!(count%110542)) {
+            cout << count/110542 << "0%...";
+        }
+        ++ count;
     }
+    cout << "Done!";
     
 }
 

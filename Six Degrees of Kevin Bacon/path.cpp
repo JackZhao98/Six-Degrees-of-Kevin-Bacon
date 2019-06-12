@@ -7,6 +7,7 @@
 //
 #include <list>
 #include <set>
+#include <queue>
 #include "path.hpp"
 using namespace std;
 path::path(const std::string& _startActor):startActor(_startActor) {}
@@ -29,44 +30,65 @@ path& path::operator=(const path& other) {
     return *this;
 }
 
-bool path::buildPath(const std::string& startActor, const std::string& targetActor, IMDb& database) {
+bool path::buildPath(const std::string& startActor, const std::string& targetActor, const IMDb& database) {
+    vector<string> moviesParticipated, castsInvolved;
+    queue<path> temporaryPath;
+    AVLTree<string> visitedCasts, visitedFilms;
     
-    list<path> temporaryPath;
-    set<string> visitedCasts;
-    set<string> visitedFilms;
+    path p(startActor);
+    // Initialize path with the starting actor,
+    // and initialize temp path with an initial actor
+    temporaryPath.push(p);
     
-    path buildpath(startActor);
-    temporaryPath.push_back(buildpath);
-    
-    while (!temporaryPath.empty() && temporaryPath.front().getLength() <= 6) {
-        path front = temporaryPath.front();
-        temporaryPath.pop_front();
+    // Run this loop as long as there are possible paths waited to be explored.
+    while (!temporaryPath.empty()) {
+        if (temporaryPath.front().getLength() > 6) {
+            /* 6 is the Maximum Depth (path lengths) I want to check */
+            temporaryPath.pop();
+            continue;
+        }
         
-        string player = front.getLastActor();
-        if (visitedCasts.find(player) == visitedCasts.end()) {
-            visitedCasts.insert(player);
-            vector<string> credits;
-            database.getCredits(player, credits);
+        path currentPath = temporaryPath.front();
+        temporaryPath.pop();
+        
+        // Store the last known actor connected to current actor.
+        string lastKnownToCurrent = currentPath.getLastKnownActor();
+        
+        // If lastknown is in the "checked list", then skip this loop.
+        if (visitedCasts.searchAVL(lastKnownToCurrent))
+            continue;
+        
+        // Otherwise, add this actor to the "checked list".
+        visitedCasts.insert(lastKnownToCurrent);
+        // Access all the movies that this actor has involved with.
+        // Store the values in "moviesParticipated"
+        database.getCredits(lastKnownToCurrent, moviesParticipated);
+        
+        for (int i = 0; i < moviesParticipated.size(); ++ i) {
+            // Check every single movie in the "moviesParticipated"
+            string currentMovie = moviesParticipated.at(i);
             
-            for (int i=0; i<credits.size(); i++) {
-                string movie = credits[i];
-                if (visitedFilms.find(movie) == visitedFilms.end()) {
-                    visitedFilms.insert(movie);
-                    
-                    vector<string> players;
-                    database.getCast(movie, players);
-                    
-                    for (int j=0; j<players.size(); j++) {
-                        string temp_player = players[j];
-                        front.addConnection(movie, temp_player);
-                        if (temp_player == targetActor) {
-                            cout<<front<<endl;
-                            return true;
-                        }else{
-                            temporaryPath.push_back(front);
-                            front.removeLastConnection();
-                        }
-                    }
+            // Skip this loop if the film has already been visited.
+            if (visitedFilms.searchAVL(lastKnownToCurrent))
+                continue;
+            
+            visitedFilms.insert(currentMovie);
+            database.getCast(currentMovie, castsInvolved);
+                
+            // Now we have a list of casts involved with this movie.
+            for (int j = 0; j < castsInvolved.size(); ++ j) {
+                // Check every single cast in the "castsParticipated"
+                string temp_player = castsInvolved.at(j);
+                currentPath.addConnection(currentMovie, temp_player);
+                
+                if (temp_player == targetActor) {
+                    cout << currentPath << endl;
+                    return true;
+                } else {
+                    // Stores the current path into the queue.
+                    temporaryPath.push(currentPath);
+                    // Then remove last connected that was just made for the next actor exploration
+                    currentPath.removeLastConnection();
                 }
             }
         }
@@ -79,39 +101,41 @@ int path::getLength() const {
     return static_cast<int>(links.size());
 }
 void path::addConnection(const std::string& movie, const std::string& actor) {
-    links.push_back(link(movie,actor));
+    links.push_back(edge(movie,actor));
 }
 void path::removeLastConnection() {
     links.pop_back();
 }
 
-const std::string& path::getLastActor() const {
+const std::string& path::getLastKnownActor() const {
     if (links.size())
         return links.back().actorName;
     return startActor;
 }
 
 void path::reversePath() {
-    path reverse(getLastActor());
-    for (unsigned long int i = links.size() - 1; i > 0; --i) {
+    // Reverse path start with the last actor,
+    // and connect previous actor with the movie of previous actor
+    // Meaning that, before: A1 with edge [M1,A2] now becomes A2, [M1, A1]
+    path reverse(getLastKnownActor());
+    for (unsigned long int i = links.size() - 1; i >= 0; --i) {
+        // Hence add connection with current movie and prev actor name.
         reverse.addConnection(links[i].movieTitle, links[i-1].actorName);
     }
-    if (links.size() > 0)
-        reverse.addConnection(links[0].movieTitle, startActor);
     *this = reverse;
 }
 
 std::ostream& operator<<(std::ostream& out, const path& print) {
     if (print.links.size() == 0)
         return out << "[Empty path]" << std::endl;
-    out << "\n\tStarting Actor: " << print.startActor << '\n';
+    out << "\n\tInitial Actor: " << print.startActor << '\n';
     out << "\tTarget Actor: " << print.links[print.links.size()-1].actorName << '\n';
     out << "\tPath Length: " << print.links.size() << "\n\n" ;
-    out << "\t" << print.startActor << " participated in ";
+    out << "\t" << print.startActor << " --> ";
     for (int i = 0; i < (int) print.links.size(); i++) {
-        out << "\"" << print.links[i].movieTitle << "\" with " << print.links[i].actorName << "." << std::endl;
+        out << "\"" << print.links[i].movieTitle << "\" --> " << print.links[i].actorName << "." << std::endl;
         if (i + 1 == (int) print.links.size()) break;
-            out << "\t" << print.links[i].actorName << " participated in ";
+            out << "\t" << print.links[i].actorName << " --> ";
     }
     
     return out;

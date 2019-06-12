@@ -13,17 +13,17 @@
 #include <vector>
 #include "IMDb.hpp"
 
-struct link {
+struct edge {
     std::string movieTitle;
     std::string actorName;
     
-    link(const std::string& movie = "", const std::string& actor = ""): movieTitle(movie), actorName(actor){}
+    edge(const std::string& movie = "", const std::string& actor = ""): movieTitle(movie), actorName(actor){}
 };
 
 class path {
 private:
     std::string startActor;
-    std::vector<link> links;
+    std::vector<edge> links;
     
 public:
     path(const std::string& _startActor= "Kevin Bacon");
@@ -31,12 +31,12 @@ public:
     path(const path& other);
     path& operator=(const path& other);
     
-    bool buildPath(const std::string& startActor, const std::string& targetActor, IMDb& database);
+    bool buildPath(const std::string& startActor, const std::string& targetActor, const IMDb& database);
     
     int getLength() const;
     void addConnection(const std::string& movie, const std::string& actor);
     void removeLastConnection();
-    const std::string& getLastActor() const;
+    const std::string& getLastKnownActor() const;
     
     void reversePath();
     
