@@ -34,8 +34,6 @@
 		EB4FCB6522A0510A0039802E /* data.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = data.hpp; sourceTree = "<group>"; };
 		EB522BC222A8FD2D0033F20F /* path.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = path.cpp; sourceTree = "<group>"; };
 		EB522BC322A8FD2D0033F20F /* path.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = path.hpp; sourceTree = "<group>"; };
-		EBA1E55522B09F2F00C0E8F9 /* Linked List.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Linked List.hpp"; sourceTree = "<group>"; };
-		EBA1E55622B09F2F00C0E8F9 /* List.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = List.hpp; sourceTree = "<group>"; };
 		EBF0954622A8DF040081C9C4 /* IMDb.tsv */ = {isa = PBXFileReference; lastKnownFileType = text; path = IMDb.tsv; sourceTree = "<group>"; };
 		EBF0954722A8DFAE0081C9C4 /* IMDb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IMDb.cpp; sourceTree = "<group>"; };
 		EBF0954822A8DFAE0081C9C4 /* IMDb.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IMDb.hpp; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				EBF0954522A8DACC0081C9C4 /* Tree */,
-				EBA1E55722B09F3300C0E8F9 /* List */,
 				EB4FCB5B22A04D0E0039802E /* main.cpp */,
 				EB4FCB6522A0510A0039802E /* data.hpp */,
 				EB522BC222A8FD2D0033F20F /* path.cpp */,
@@ -87,15 +84,6 @@
 				EBF0954622A8DF040081C9C4 /* IMDb.tsv */,
 			);
 			path = "Six Degrees of Kevin Bacon";
-			sourceTree = "<group>";
-		};
-		EBA1E55722B09F3300C0E8F9 /* List */ = {
-			isa = PBXGroup;
-			children = (
-				EBA1E55522B09F2F00C0E8F9 /* Linked List.hpp */,
-				EBA1E55622B09F2F00C0E8F9 /* List.hpp */,
-			);
-			path = List;
 			sourceTree = "<group>";
 		};
 		EBF0954522A8DACC0081C9C4 /* Tree */ = {
