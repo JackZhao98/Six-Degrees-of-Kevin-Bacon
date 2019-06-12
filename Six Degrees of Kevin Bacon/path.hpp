@@ -12,15 +12,16 @@
 #include <iostream>
 #include <vector>
 #include "IMDb.hpp"
+
+struct link {
+    std::string movieTitle;
+    std::string actorName;
+    
+    link(const std::string& movie = "", const std::string& actor = ""): movieTitle(movie), actorName(actor){}
+};
+
 class path {
 private:
-    struct link {
-        std::string movieTitle;
-        std::string actorName;
-        
-        link(const std::string& movie = "", const std::string& actor = ""): movieTitle(movie), actorName(actor){}
-    };
-    
     std::string startActor;
     std::vector<link> links;
     

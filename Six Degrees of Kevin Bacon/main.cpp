@@ -30,12 +30,13 @@ void render() {
     cout << "\n\tDatabase loaded, elapsed time: "<< chrono::duration_cast<chrono::seconds>(duration).count() << "s\n\n";
     
     while (true) {
-        string start = userInput("Actor name: ", i);
-        string target = userInput("Another Actor name: ", i);
+        string start = userInput("Starting Cast name ", i);
+        string target = userInput("Targeting Cast name: ", i);
+        if (start == "" || target == ""){
+            return;
+        }
         if (target == start) {
             cout << "Degree of 0, Nice try\n";
-        } else if (start == "" || target == ""){
-            break;
         }
         else {
             auto Pstart = chrono::high_resolution_clock::now();
@@ -55,15 +56,14 @@ string userInput(const string& hint, const IMDb& i) {
     string input;
     while (true) {
         vector<string> credits;
-        cout << hint << " (press Enter to exit): ";
+        cout << hint << " (or press Enter to exit): ";
         getline(cin, input);
-        
         if (input == "")
             break;
         if (i.getCredits(input, credits))
             break;
         
-        cout << "Unable to find \"" << input << "\" in the IMDb database. "<< "Please try again." << endl;
+        cout << "Unable to find \"" << input << "\" in my IMDb database. Please try again." << endl;
     }
     return input;
 }

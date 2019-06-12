@@ -31,27 +31,27 @@ path& path::operator=(const path& other) {
 
 bool path::buildPath(const std::string& startActor, const std::string& targetActor, IMDb& database) {
     
-    list<path> partialpaths;
-    set<string> previouslyseenactors;
-    set<string> previouslyseenfilms;
+    list<path> temporaryPath;
+    set<string> visitedCasts;
+    set<string> visitedFilms;
     
     path buildpath(startActor);
-    partialpaths.push_back(buildpath);
+    temporaryPath.push_back(buildpath);
     
-    while (!partialpaths.empty() && partialpaths.front().getLength() <= 6) {
-        path front = partialpaths.front();
-        partialpaths.pop_front();
+    while (!temporaryPath.empty() && temporaryPath.front().getLength() <= 6) {
+        path front = temporaryPath.front();
+        temporaryPath.pop_front();
         
         string player = front.getLastActor();
-        if (previouslyseenactors.find(player) == previouslyseenactors.end()) {
-            previouslyseenactors.insert(player);
+        if (visitedCasts.find(player) == visitedCasts.end()) {
+            visitedCasts.insert(player);
             vector<string> credits;
             database.getCredits(player, credits);
             
             for (int i=0; i<credits.size(); i++) {
                 string movie = credits[i];
-                if (previouslyseenfilms.find(movie) == previouslyseenfilms.end()) {
-                    previouslyseenfilms.insert(movie);
+                if (visitedFilms.find(movie) == visitedFilms.end()) {
+                    visitedFilms.insert(movie);
                     
                     vector<string> players;
                     database.getCast(movie, players);
@@ -63,16 +63,13 @@ bool path::buildPath(const std::string& startActor, const std::string& targetAct
                             cout<<front<<endl;
                             return true;
                         }else{
-                            partialpaths.push_back(front);
+                            temporaryPath.push_back(front);
                             front.removeLastConnection();
                         }
                     }
                 }
             }
-            
         }
-        
-        
     }
     
     return false;
@@ -96,7 +93,7 @@ const std::string& path::getLastActor() const {
 
 void path::reversePath() {
     path reverse(getLastActor());
-    for (int i = links.size() - 1; i > 0; --i) {
+    for (unsigned long int i = links.size() - 1; i > 0; --i) {
         reverse.addConnection(links[i].movieTitle, links[i-1].actorName);
     }
     if (links.size() > 0)
@@ -110,11 +107,11 @@ std::ostream& operator<<(std::ostream& out, const path& print) {
     out << "\n\tStarting Actor: " << print.startActor << '\n';
     out << "\tTarget Actor: " << print.links[print.links.size()-1].actorName << '\n';
     out << "\tPath Length: " << print.links.size() << "\n\n" ;
-    out << "\t" << print.startActor << " was acting in ";
+    out << "\t" << print.startActor << " participated in ";
     for (int i = 0; i < (int) print.links.size(); i++) {
         out << "\"" << print.links[i].movieTitle << "\" with " << print.links[i].actorName << "." << std::endl;
         if (i + 1 == (int) print.links.size()) break;
-            out << "\t" << print.links[i].actorName << " was acting in ";
+            out << "\t" << print.links[i].actorName << " participated in ";
     }
     
     return out;
